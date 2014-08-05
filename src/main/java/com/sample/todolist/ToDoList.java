@@ -94,8 +94,9 @@ public class ToDoList {
 					(String) json.get(iterator.next()),
 					(Boolean)json.get(iterator.next()));
 			list.add(item);
-		} catch (JSONException e) {
+		} catch (JSONException e) {	
 			e.printStackTrace();
+			return Response.status(500).entity(listBuilder.toString()).build();
 		}
 		// return HTTP response 200 in case of success
 		return Response.status(200).entity(listBuilder.toString()).build();
@@ -118,7 +119,7 @@ public class ToDoList {
 	@Path("{title}/{body}/{isDone}")
 	@Produces(value = "text/plain")
 	@Consumes(MediaType.TEXT_PLAIN)
-	public String toggleStatusListItem(@PathParam("title") String title,
+	public Response toggleStatusListItem(@PathParam("title") String title,
 			@PathParam("body") String body, @PathParam("isDone") boolean isDone) {
 		// Find your Account Sid and Token at twilio.com/user/account
 		ListItem item = new ListItem(title, body, isDone);
@@ -147,12 +148,12 @@ public class ToDoList {
 						.getMessageFactory();
 				Message message = messageFactory.create(params);
 				System.out.println(message.getSid());
-				return "Success";
+				return Response.status(200).entity(body.toString()).build();
 			} catch (TwilioRestException e) {
 				System.out.println(e.getErrorMessage());
 			}
 		}
-		return "Fail";
+		return Response.status(500).entity(body.toString()).build();
 	}
 
 	@PUT
