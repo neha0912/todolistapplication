@@ -131,8 +131,8 @@ public class ToDoList {
 
 		if (isDone == Boolean.FALSE) {
 
-			String ACCOUNT_SID = "AC96d0a9024203de2a4177624c789fad17";
-			String AUTH_TOKEN = "919a89967cc484a35a1a0cfd0555dd57";
+			String ACCOUNT_SID = "";
+			String AUTH_TOKEN = "";
 
 			TwilioRestClient client = new TwilioRestClient(ACCOUNT_SID,
 					AUTH_TOKEN);
